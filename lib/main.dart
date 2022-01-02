@@ -16,6 +16,15 @@ void main() {
         defaultColor: const Color(0xFF9D50DD),
         ledColor: Colors.white,
       ),
+      NotificationChannel(
+        channelGroupKey: 'reminders',
+        channelKey: 'scheduled_notification',
+        channelName: 'Scheduled Notification',
+        channelDescription:
+            'Notification channel that can trigger notification based on predefined time.',
+        defaultColor: const Color(0xFF9D50DD),
+        ledColor: Colors.white,
+      ),
     ],
   );
 }
@@ -28,11 +37,28 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: TextButton(
-            onPressed: () {
-              Notify.instantNotify();
-            },
-            child: const Text("Instant Notification "),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () async {
+                  await Notify.instantNotify();
+                },
+                child: const Text("Instant Notification "),
+              ),
+              TextButton(
+                onPressed: () async {
+                  await Notify.scheduleNotification();
+                },
+                child: const Text("Schedule Notification "),
+              ),
+              TextButton(
+                onPressed: () async {
+                  await Notify.retrieveScheduledNotifications();
+                },
+                child: const Text("Retrieve Scheduled Notifications"),
+              ),
+            ],
           ),
         ),
       ),
